@@ -75,7 +75,8 @@ body {
   width: min(230px, 58vw);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: conic-gradient(var(--accent) 0 72%, var(--ring-base) 72% 100%);
+  --progress: 0%;
+  background: conic-gradient(var(--accent) 0 var(--progress), var(--ring-base) var(--progress) 100%);
   display: grid;
   place-items: center;
 }
