@@ -1,4 +1,5 @@
-:root {
+:root,
+:root[data-theme="light"] {
   --bg-top: #6f6bd6;
   --bg-bottom: #655bc9;
   --card-bg: #f4f4f8;
@@ -8,6 +9,36 @@
   --accent: #6a77e8;
   --ring-base: #e1e2e8;
   --shadow: 0 20px 40px rgba(40, 38, 96, 0.25);
+  --chip-bg: #ffffff;
+  --chip-border: #d6d7e2;
+}
+
+:root[data-theme="dark"] {
+  --bg-top: #1f1f2e;
+  --bg-bottom: #14141f;
+  --card-bg: #262635;
+  --panel-bg: #1d1d2a;
+  --text-main: #ececf2;
+  --text-muted: #a4a6b8;
+  --accent: #8b95f2;
+  --ring-base: #383951;
+  --shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+  --chip-bg: #2f3044;
+  --chip-border: #44465e;
+}
+
+:root[data-theme="focus"] {
+  --bg-top: #0d0d10;
+  --bg-bottom: #0d0d10;
+  --card-bg: #141418;
+  --panel-bg: #141418;
+  --text-main: #f0f0f4;
+  --text-muted: #8a8b94;
+  --accent: #ffffff;
+  --ring-base: #2a2a31;
+  --shadow: none;
+  --chip-bg: #1c1c22;
+  --chip-border: #2a2a31;
 }
 
 * {
@@ -176,4 +207,103 @@ body {
   .btn {
     flex: 1 1 44%;
   }
+}
+
+/* --- 設定パネル --- */
+.btn-settings {
+  min-width: 0;
+}
+
+.settings-panel {
+  display: none;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--panel-bg);
+}
+
+.settings-panel[data-open] {
+  display: block;
+}
+
+.settings-group + .settings-group {
+  margin-top: 14px;
+}
+
+.settings-title {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--text-main);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+}
+
+.chip-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.sound-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.sound-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.sound-item input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+/* --- フォーカスモード: ミニマルUI --- */
+:root[data-theme="focus"] .title-bar,
+:root[data-theme="focus"] .summary {
+  display: none;
+}
+
+:root[data-theme="focus"] .card {
+  background: var(--card-bg);
+  box-shadow: none;
+}
+
+:root[data-theme="focus"] .btn-primary {
+  background: #ffffff;
+  color: #0d0d10;
+}
+
+:root[data-theme="focus"] .btn-outline {
+  color: #ffffff;
+  border-color: #ffffff;
 }
