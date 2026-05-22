@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, current_app, jsonify, render_template, request
 
 from ..application.gamification_service import (
     build_stats,
@@ -26,8 +26,9 @@ def register_routes(app: Flask) -> None:
                 completed_at=payload.get("completed_at"),
                 status=payload.get("status", "completed"),
             )
-        except (ValueError, TypeError) as exc:
-            return jsonify({"error": str(exc)}), 400
+        except (ValueError, TypeError):
+            current_app.logger.exception("invalid session payload")
+            return jsonify({"error": "invalid session payload"}), 400
         return jsonify({"id": new_id}), 201
 
     @app.get("/api/gamification/summary")
@@ -39,6 +40,7 @@ def register_routes(app: Flask) -> None:
         range_name = request.args.get("range", "week")
         try:
             data = build_stats(get_db(), range_name=range_name)
-        except ValueError as exc:
-            return jsonify({"error": str(exc)}), 400
+        except ValueError:
+            current_app.logger.exception("invalid stats range")
+            return jsonify({"error": "invalid range; must be 'week' or 'month'"}), 400
         return jsonify(data)
