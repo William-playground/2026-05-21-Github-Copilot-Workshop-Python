@@ -18,35 +18,76 @@
           </div>
         </header>
 
-        <p class="status" aria-live="polite">作業中</p>
+        <p class="status" id="status" aria-live="polite">作業中</p>
 
         <section class="progress-area" aria-label="タイマー進捗">
-          <div class="ring" role="img" aria-label="進捗 72%">
+          <div
+            class="ring"
+            id="ring"
+            role="img"
+            aria-label="進捗 0%"
+            style="background: conic-gradient(var(--accent) 0 0%, var(--ring-base) 0% 100%);"
+          >
             <div class="ring-inner">
-              <p class="time">25:00</p>
+              <p class="time" id="time">25:00</p>
             </div>
           </div>
         </section>
 
         <section class="actions" aria-label="タイマー操作">
-          <button type="button" class="btn btn-primary">開始</button>
-          <button type="button" class="btn btn-outline">リセット</button>
+          <button type="button" class="btn btn-primary" id="primary-btn">開始</button>
+          <button type="button" class="btn btn-outline" id="reset-btn">リセット</button>
         </section>
+
+        <p
+          class="error-banner"
+          id="error-banner"
+          role="alert"
+          aria-live="assertive"
+          hidden
+        ></p>
 
         <section class="summary" aria-label="今日の進捗">
           <h2>今日の進捗</h2>
           <div class="summary-grid">
             <article>
-              <p class="summary-value">4</p>
+              <p class="summary-value" id="summary-count">0</p>
               <p class="summary-label">完了</p>
             </article>
             <article>
-              <p class="summary-value">1時間40分</p>
+              <p class="summary-value" id="summary-focus">0分</p>
               <p class="summary-label">集中時間</p>
             </article>
           </div>
         </section>
+
+        <section class="settings" aria-label="設定">
+          <details>
+            <summary>設定</summary>
+            <form id="settings-form" class="settings-form">
+              <label>
+                作業（分）
+                <input type="number" name="focus_minutes" min="1" required />
+              </label>
+              <label>
+                短休憩（分）
+                <input type="number" name="short_break_minutes" min="1" required />
+              </label>
+              <label>
+                長休憩（分）
+                <input type="number" name="long_break_minutes" min="1" required />
+              </label>
+              <label>
+                長休憩の間隔
+                <input type="number" name="long_break_interval" min="1" required />
+              </label>
+              <button type="submit" class="btn btn-outline">保存</button>
+              <p class="settings-hint">変更は次のセッションから反映されます。</p>
+            </form>
+          </details>
+        </section>
       </section>
     </main>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   </body>
 </html>
