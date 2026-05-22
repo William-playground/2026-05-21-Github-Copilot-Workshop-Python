@@ -21,7 +21,7 @@
         <p class="status" aria-live="polite">作業中</p>
 
         <section class="progress-area" aria-label="タイマー進捗">
-          <div class="ring" role="img" aria-label="進捗 72%">
+          <div class="ring" role="img" aria-label="進捗 0%">
             <div class="ring-inner">
               <p class="time">25:00</p>
             </div>
@@ -29,8 +29,59 @@
         </section>
 
         <section class="actions" aria-label="タイマー操作">
-          <button type="button" class="btn btn-primary">開始</button>
-          <button type="button" class="btn btn-outline">リセット</button>
+          <button type="button" class="btn btn-primary" data-action="start">開始</button>
+          <button type="button" class="btn btn-outline" data-action="reset">リセット</button>
+          <button
+            type="button"
+            class="btn btn-outline btn-settings"
+            data-action="toggle-settings"
+            aria-expanded="false"
+            aria-controls="settings-panel"
+          >
+            設定
+          </button>
+        </section>
+
+        <section
+          id="settings-panel"
+          class="settings-panel"
+          aria-label="タイマー設定"
+        >
+          <div class="settings-group">
+            <h3 class="settings-title">作業時間</h3>
+            <div class="chip-group" role="group" aria-label="作業時間" data-options="focus"></div>
+          </div>
+          <div class="settings-group">
+            <h3 class="settings-title">休憩時間</h3>
+            <div class="chip-group" role="group" aria-label="休憩時間" data-options="break"></div>
+          </div>
+          <div class="settings-group">
+            <h3 class="settings-title">テーマ</h3>
+            <div class="chip-group" role="group" aria-label="テーマ" data-options="theme"></div>
+          </div>
+          <div class="settings-group">
+            <h3 class="settings-title">サウンド</h3>
+            <ul class="sound-list">
+              <li>
+                <label class="sound-item">
+                  <input type="checkbox" data-sound="start" />
+                  <span>開始音</span>
+                </label>
+              </li>
+              <li>
+                <label class="sound-item">
+                  <input type="checkbox" data-sound="end" />
+                  <span>終了音</span>
+                </label>
+              </li>
+              <li>
+                <label class="sound-item">
+                  <input type="checkbox" data-sound="tick" />
+                  <span>tick音</span>
+                </label>
+              </li>
+            </ul>
+          </div>
         </section>
 
         <section class="summary" aria-label="今日の進捗">
@@ -48,5 +99,6 @@
         </section>
       </section>
     </main>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   </body>
 </html>
