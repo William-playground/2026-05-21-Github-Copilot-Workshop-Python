@@ -158,6 +158,61 @@ body {
   font-size: 0.95rem;
 }
 
+.error-banner {
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fde2e2;
+  color: #8a1f1f;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.error-banner[data-kind="info"] {
+  background: #e2ecfd;
+  color: #1f3f8a;
+}
+
+.settings {
+  margin-top: 18px;
+}
+
+.settings summary {
+  cursor: pointer;
+  padding: 8px 4px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.settings-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.settings-form label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.settings-form input {
+  width: 96px;
+  padding: 6px 10px;
+  border: 1px solid #c8c9d6;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.settings-hint {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
 @media (max-width: 480px) {
   .card {
     border-radius: 16px;
