@@ -59,8 +59,8 @@ def register_routes(app: Flask, *, clock: Clock | None = None) -> None:
                 duration_seconds=payload.get("duration_seconds"),
                 completed_at=completed_at,
             )
-        except services.ValidationError as e:
-            return jsonify({"error": str(e)}), 400
+        except services.ValidationError:
+            return jsonify({"error": "invalid request payload"}), 400
         except (ValueError, TypeError):
             return jsonify({"error": "invalid request payload"}), 400
         return (
@@ -100,8 +100,8 @@ def register_routes(app: Flask, *, clock: Clock | None = None) -> None:
                 long_break_minutes=payload.get("long_break_minutes"),
                 long_break_interval=payload.get("long_break_interval"),
             )
-        except services.ValidationError as e:
-            return jsonify({"error": str(e)}), 400
+        except services.ValidationError:
+            return jsonify({"error": "invalid request payload"}), 400
         except (ValueError, TypeError):
             return jsonify({"error": "invalid request payload"}), 400
         return jsonify(
