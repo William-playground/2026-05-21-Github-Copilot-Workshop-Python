@@ -1,10 +1,11 @@
 from flask import Flask
 
+from pomodoro.infrastructure.clock import Clock
 from pomodoro.infrastructure.db import init_db_extension
 from pomodoro.presentation.routes import register_routes
 
 
-def create_app(config: dict | None = None) -> Flask:
+def create_app(config: dict | None = None, *, clock: Clock | None = None) -> Flask:
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_mapping(
 		DATABASE="instance/pomodoro.sqlite3",
@@ -15,7 +16,7 @@ def create_app(config: dict | None = None) -> Flask:
 		app.config.update(config)
 
 	init_db_extension(app)
-	register_routes(app)
+	register_routes(app, clock=clock)
 	return app
 
 
