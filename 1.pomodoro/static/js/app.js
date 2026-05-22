@@ -65,7 +65,7 @@
       if (!saved || typeof saved !== "object") return;
 
       state.type = saved.type || "work";
-      state.completedWorkCount = saved.completedWorkCount | 0;
+      state.completedWorkCount = Number(saved.completedWorkCount) || 0;
 
       if (saved.status === "running" && typeof saved.endTimestamp === "number") {
         const remaining = saved.endTimestamp - Date.now();
@@ -81,11 +81,12 @@
         }
       } else if (saved.status === "paused") {
         state.status = "paused";
-        state.remainingMs = Math.max(0, saved.remainingMs | 0);
+        state.remainingMs = Math.max(0, Number(saved.remainingMs) || 0);
         state.endTimestamp = null;
       } else {
         state.status = "idle";
-        state.remainingMs = (saved.remainingMs | 0) || durationMsFor(state.type);
+        state.remainingMs =
+          Number(saved.remainingMs) || durationMsFor(state.type);
         state.endTimestamp = null;
       }
     } catch (e) {
