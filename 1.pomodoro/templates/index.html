@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
+    <canvas class="bg-fx" aria-hidden="true"></canvas>
     <main class="screen">
       <section class="card" aria-label="ポモドーロタイマー">
         <header class="title-bar">
@@ -21,7 +22,11 @@
         <p class="status" aria-live="polite">作業中</p>
 
         <section class="progress-area" aria-label="タイマー進捗">
-          <div class="ring" role="img" aria-label="進捗 72%">
+          <div class="ring" role="img" aria-label="進捗 0%">
+            <svg class="ring-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-track" cx="60" cy="60" r="54" />
+              <circle class="ring-progress" cx="60" cy="60" r="54" />
+            </svg>
             <div class="ring-inner">
               <p class="time">25:00</p>
             </div>
@@ -29,8 +34,8 @@
         </section>
 
         <section class="actions" aria-label="タイマー操作">
-          <button type="button" class="btn btn-primary">開始</button>
-          <button type="button" class="btn btn-outline">リセット</button>
+          <button type="button" class="btn btn-primary" data-action="start">開始</button>
+          <button type="button" class="btn btn-outline" data-action="reset">リセット</button>
         </section>
 
         <section class="summary" aria-label="今日の進捗">
@@ -48,5 +53,6 @@
         </section>
       </section>
     </main>
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
   </body>
 </html>
