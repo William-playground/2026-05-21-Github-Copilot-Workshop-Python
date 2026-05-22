@@ -19,6 +19,18 @@ from pomodoro.infrastructure.repositories_sqlite import (
 )
 
 
+def _validation_message(exc: ValidationError) -> str:
+    """ValidationError から、自前で設定したリテラル文字列メッセージのみを返す。
+
+    例外オブジェクトを直接 ``str()`` で文字列化するとスタックトレース情報が
+    露出する可能性を分析ツールに警告されるため、明示的に ``args[0]`` を取り出す。
+    """
+    args = exc.args
+    if args and isinstance(args[0], str):
+        return args[0]
+    return "invalid request"
+
+
 def _settings_to_dict(settings: Settings) -> dict[str, int]:
     return {
         "focus_minutes": settings.focus_minutes,
@@ -63,7 +75,7 @@ def register_routes(app: Flask) -> None:
             service = SessionService(SessionRepository(get_db()))
             session = service.record(payload or {})
         except ValidationError as exc:
-            return jsonify({"error": str(exc)}), 400
+            return jsonify({"error": _validation_message(exc)}), 400
         return jsonify(_session_to_dict(session)), 201
 
     @app.get("/api/settings")
@@ -78,5 +90,5 @@ def register_routes(app: Flask) -> None:
             service = SettingsService(SettingsRepository(get_db()))
             settings = service.update(payload or {})
         except ValidationError as exc:
-            return jsonify({"error": str(exc)}), 400
+            return jsonify({"error": _validation_message(exc)}), 400
         return jsonify(_settings_to_dict(settings))

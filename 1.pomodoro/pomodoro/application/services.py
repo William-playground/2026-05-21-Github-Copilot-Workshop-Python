@@ -22,8 +22,8 @@ def _parse_iso(value: Any) -> datetime:
     try:
         # 'Z' サフィックスにも対応
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
-    except ValueError as exc:
-        raise ValidationError("completed_at must be ISO 8601 string") from exc
+    except ValueError:
+        raise ValidationError("completed_at must be ISO 8601 string") from None
 
 
 class SessionService:
