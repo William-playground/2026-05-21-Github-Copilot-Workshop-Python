@@ -1,12 +1,14 @@
 :root {
-  --bg-top: #6f6bd6;
-  --bg-bottom: #655bc9;
-  --card-bg: #f4f4f8;
-  --panel-bg: #e8e8f2;
-  --text-main: #30313b;
-  --text-muted: #626478;
-  --accent: #6a77e8;
-  --ring-base: #e1e2e8;
+  --bg-top: #5a55c4;
+  --bg-bottom: #4a3fad;
+  --card-bg: #ffffff;
+  --panel-bg: #ececf5;
+  --text-main: #1f2030;
+  --text-muted: #4a4c63;
+  --accent: #4a55d6;
+  --accent-strong: #3a44b8;
+  --ring-base: #d8d9e3;
+  --focus-ring: #ffbf2e;
   --shadow: 0 20px 40px rgba(40, 38, 96, 0.25);
 }
 
@@ -114,13 +116,106 @@ body {
 
 .btn-primary {
   color: #ffffff;
-  background: linear-gradient(135deg, #6f7beb, #644db8);
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
 }
 
 .btn-outline {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--accent-strong);
+  border-color: var(--accent-strong);
   background: transparent;
+}
+
+.btn {
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 12px rgba(40, 38, 96, 0.18);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* フォーカス可視化（キーボード操作） */
+.btn:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* スキップリンク（キーボードユーザー向け） */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  padding: 8px 14px;
+  background: #ffffff;
+  color: var(--accent-strong);
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* スクリーンリーダー専用 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* キーボードショートカットの注釈 */
+.shortcut-hint {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.shortcut-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  margin: 0 2px;
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--text-main);
+  background: #ffffff;
+  border: 1px solid #c5c7d4;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+/* ハイコントラスト環境向け */
+@media (prefers-contrast: more) {
+  :root {
+    --text-main: #000000;
+    --text-muted: #1a1a1a;
+    --accent: #2a2db0;
+    --accent-strong: #1a1d8c;
+    --card-bg: #ffffff;
+    --panel-bg: #f0f0f6;
+    --ring-base: #b8b9c4;
+  }
+}
+
+/* モーション削減設定への配慮 */
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
 }
 
 .summary {
@@ -149,7 +244,7 @@ body {
   margin: 0;
   font-size: clamp(1.8rem, 4vw, 2.4rem);
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .summary-label {
