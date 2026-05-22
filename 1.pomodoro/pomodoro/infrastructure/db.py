@@ -30,7 +30,9 @@ def init_db() -> None:
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             session_type TEXT NOT NULL CHECK (session_type IN ('focus', 'break')),
             duration_seconds INTEGER NOT NULL CHECK (duration_seconds >= 0),
-            completed_at TEXT NOT NULL
+            completed_at TEXT NOT NULL,
+            status TEXT NOT NULL DEFAULT 'completed'
+                CHECK (status IN ('completed', 'aborted'))
         );
 
         CREATE TABLE IF NOT EXISTS settings (
@@ -42,6 +44,13 @@ def init_db() -> None:
         );
         """
     )
+    # Idempotent migration: add ``status`` column to pre-existing ``sessions``
+    # tables that were created before gamification was introduced.
+    existing_columns = {row["name"] for row in db.execute("PRAGMA table_info(sessions)")}
+    if "status" not in existing_columns:
+        db.execute(
+            "ALTER TABLE sessions ADD COLUMN status TEXT NOT NULL DEFAULT 'completed'"
+        )
     db.execute(
         """
         INSERT INTO settings (id, focus_minutes, short_break_minutes, long_break_minutes, long_break_interval)

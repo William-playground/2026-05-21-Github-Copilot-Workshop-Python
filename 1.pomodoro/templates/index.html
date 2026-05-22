@@ -46,7 +46,39 @@
             </article>
           </div>
         </section>
+
+        <section class="gamification" aria-label="ゲーミフィケーション">
+          <h2>達成状況</h2>
+
+          <div class="level-row">
+            <span class="level-badge" id="g-level">Lv. 1</span>
+            <div class="xp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="g-xp-bar">
+              <div class="xp-bar-fill" id="g-xp-fill"></div>
+            </div>
+            <span class="xp-text" id="g-xp-text">0 / 100 XP</span>
+          </div>
+
+          <div class="streak-row">
+            <span class="streak-flame" aria-hidden="true">🔥</span>
+            <span class="streak-text">連続達成 <strong id="g-streak">0</strong> 日</span>
+            <span class="success-text">成功率 <strong id="g-success-rate">0%</strong></span>
+          </div>
+
+          <h3>バッジ</h3>
+          <ul class="badge-list" id="g-badges" aria-label="獲得バッジ一覧"></ul>
+
+          <div class="stats-header">
+            <h3>統計</h3>
+            <div class="stats-toggle" role="tablist">
+              <button type="button" class="stats-tab is-active" data-range="week" role="tab" aria-selected="true">週間</button>
+              <button type="button" class="stats-tab" data-range="month" role="tab" aria-selected="false">月間</button>
+            </div>
+          </div>
+          <div class="stats-totals" id="g-stats-totals" aria-live="polite"></div>
+          <div class="stats-chart" id="g-stats-chart" role="img" aria-label="集中ポモドーロ日別グラフ"></div>
+        </section>
       </section>
     </main>
+    <script src="{{ url_for('static', filename='js/gamification.js') }}" defer></script>
   </body>
 </html>
