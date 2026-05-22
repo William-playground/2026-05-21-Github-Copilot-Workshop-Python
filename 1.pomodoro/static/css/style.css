@@ -6,6 +6,8 @@
   --text-main: #30313b;
   --text-muted: #626478;
   --accent: #6a77e8;
+  --accent-dark: #4f3fb5;
+  --accent-light: #a99bf0;
   --ring-base: #e1e2e8;
   --shadow: 0 20px 40px rgba(40, 38, 96, 0.25);
 }
@@ -75,7 +77,14 @@ body {
   width: min(230px, 58vw);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: conic-gradient(var(--accent) 0 72%, var(--ring-base) 72% 100%);
+  background:
+    conic-gradient(
+      from 0deg,
+      var(--accent-dark) 0%,
+      var(--accent) 36%,
+      var(--accent-light) 72%,
+      var(--ring-base) 72% 100%
+    );
   display: grid;
   place-items: center;
 }
