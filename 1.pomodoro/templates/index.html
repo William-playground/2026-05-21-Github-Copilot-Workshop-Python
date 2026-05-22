@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#5a4fbf" />
     <title>ポモドーロタイマー</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   </head>
   <body>
-    <main class="screen">
+    <a href="#main-controls" class="skip-link">メイン操作にスキップ</a>
+    <main class="screen" id="main">
       <section class="card" aria-label="ポモドーロタイマー">
         <header class="title-bar">
           <h1>ポモドーロタイマー</h1>
@@ -21,32 +23,68 @@
         <p class="status" aria-live="polite">作業中</p>
 
         <section class="progress-area" aria-label="タイマー進捗">
-          <div class="ring" role="img" aria-label="進捗 72%">
+          <div
+            class="ring"
+            role="progressbar"
+            aria-label="進捗 0%"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
             <div class="ring-inner">
-              <p class="time">25:00</p>
+              <p class="time" aria-live="off">25:00</p>
             </div>
           </div>
         </section>
 
-        <section class="actions" aria-label="タイマー操作">
-          <button type="button" class="btn btn-primary">開始</button>
-          <button type="button" class="btn btn-outline">リセット</button>
+        <section class="actions" id="main-controls" aria-label="タイマー操作">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-action="start"
+            data-mode="start"
+            aria-label="タイマーを開始"
+          >
+            開始
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            data-action="reset"
+            aria-label="タイマーをリセット"
+          >
+            リセット
+          </button>
         </section>
+
+        <p class="shortcut-hint" aria-hidden="true">
+          ショートカット: <kbd>Space</kbd> 開始/一時停止 / <kbd>R</kbd> リセット / <kbd>N</kbd> 通知許可
+        </p>
 
         <section class="summary" aria-label="今日の進捗">
           <h2>今日の進捗</h2>
           <div class="summary-grid">
             <article>
-              <p class="summary-value">4</p>
+              <p class="summary-value" data-summary="count">0</p>
               <p class="summary-label">完了</p>
             </article>
             <article>
-              <p class="summary-value">1時間40分</p>
+              <p class="summary-value" data-summary="focus">0分</p>
               <p class="summary-label">集中時間</p>
             </article>
           </div>
         </section>
       </section>
     </main>
+
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      data-live
+    ></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
   </body>
 </html>
